@@ -1,13 +1,16 @@
 package com.hypertron;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.entity.Player;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.Bukkit;
 
 public class BlockPlaceListener implements Listener {
+
     private final FurniCraft plugin;
 
     public BlockPlaceListener(FurniCraft plugin) {
@@ -16,16 +19,24 @@ public class BlockPlaceListener implements Listener {
 
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
-        if (event.getBlock().getType() == Material.GLASS) {
-            event.setCancelled(true); // Cancel the block placement
+        Player player = event.getPlayer();
+        Block block = event.getBlockPlaced();
 
-            Player player = event.getPlayer();
-            String summonCommand = plugin.getSummonCommand("default_block");
+        if (block != null) {
+            String blockType = block.getType().toString();
+            
+            // Get the summon command for the block
+            String summonCommand = plugin.getSummonCommandForBlock(blockType);
+
             if (summonCommand != null) {
+                // Use Bukkit.dispatchCommand instead of World.getServer()
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), summonCommand);
-                player.sendMessage("§aCustom block placed successfully!");
-            } else {
-                player.sendMessage("§cNo model found for this block!");
+                
+                // Check and apply glow effect if enabled for this block
+                boolean glowEffect = plugin.getGlowEffectForBlock(blockType);
+                if (glowEffect) {
+                    plugin.applyGlowEffect(player, block);
+                }
             }
         }
     }

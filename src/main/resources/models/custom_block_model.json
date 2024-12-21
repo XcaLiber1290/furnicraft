@@ -1,0 +1,12 @@
+{
+    "summon_command": "/summon block_display ~ ~ ~ {Passengers:[{id:\"minecraft:block_display\",block_state:{Name:\"minecraft:oak_log\",Properties:{axis:\"x\"}}}]}",
+    "bounded_block": "minecraft:glass",
+    "glow_effect": true,
+    "block_info": [
+      {
+        "name": "Oak Log Display",
+        "description": "This is a custom display model for the Oak Log with a cool enchantment effect."
+      }
+    ]
+  }
+  

@@ -3,3 +3,14 @@ version: 1.0
 main: com.hypertron.FurniCraft
 api-version: 1.20
 commands:
+  furnicraft:
+    description: FurniCraft main command
+    usage: /<command> [get|list|reload] [furniture_name]
+    aliases: [fc]
+permissions:
+  furnicraft.use:
+    description: Allows the user to use FurniCraft features
+    default: true
+  furnicraft.admin:
+    description: Allows access to administrative commands
+    default: op
