@@ -35,7 +35,7 @@
                 <filtering>false</filtering>
                 <includes>
                     <include>plugin.yml</include>
-                    <include>model.yml</include>
+                    <include>models.yml</include>
                     <include>models</include>
                 </includes>
             </resource>
